@@ -1,0 +1,103 @@
+{
+  "definitions": {
+    "Base": {
+      "kind": "entity",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.Integer"
+        }
+      }
+    },
+    "CatalogService": {
+      "kind": "service",
+      "@source": "srv/my-service.cds"
+    },
+    "CatalogService.SUPP1": {
+      "kind": "entity",
+      "@Capabilities.DeleteRestrictions.Deletable": true,
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@title": "{i18n>taxiService}",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "VENDORS"
+            ],
+            "as": "supp"
+          }
+        }
+      },
+      "elements": {
+        "VENDOR_ID": {
+          "@title": "{i18n>IDTaksi}",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "CODE": {
+          "@title": "{i18n>Vards}",
+          "type": "cds.Integer64"
+        },
+        "NAME": {
+          "@title": "{i18n>Uzvards}",
+          "type": "cds.hana.VARCHAR",
+          "length": 100
+        },
+        "DPMNT": {
+          "@title": "{i18n>NmrKods}",
+          "type": "cds.hana.VARCHAR",
+          "length": 100
+        },
+        "STATUS": {
+          "@title": "{i18n>PersKodsAtd}",
+          "type": "cds.hana.VARCHAR",
+          "length": 13
+        },
+        "VENDORDATE": {
+          "@title": "{i18n>VATnumber}",
+          "type": "cds.DateTime"
+        }
+      },
+      "$syntax": "projection"
+    },
+    "VENDORS": {
+      "kind": "entity",
+      "@cds.persistence.exists": true,
+      "elements": {
+        "VENDOR_ID": {
+          "@title": "{i18n>IDTaksi}",
+          "key": true,
+          "type": "cds.Integer64"
+        },
+        "CODE": {
+          "@title": "{i18n>Vards}",
+          "type": "cds.Integer64"
+        },
+        "NAME": {
+          "@title": "{i18n>Uzvards}",
+          "type": "cds.hana.VARCHAR",
+          "length": 100
+        },
+        "DPMNT": {
+          "@title": "{i18n>NmrKods}",
+          "type": "cds.hana.VARCHAR",
+          "length": 100
+        },
+        "STATUS": {
+          "@title": "{i18n>PersKodsAtd}",
+          "type": "cds.hana.VARCHAR",
+          "length": 13
+        },
+        "VENDORDATE": {
+          "@title": "{i18n>VATnumber}",
+          "type": "cds.DateTime"
+        }
+      }
+    }
+  },
+  "meta": {
+    "creator": "CDS Compiler v1.21.1"
+  },
+  "$version": "1.0"
+}

@@ -1,0 +1,8 @@
+{
+  "VENDORS": {
+    "target": {
+      "object": "VENDORS",
+      "schema": "CDN"
+    }
+  }
+}

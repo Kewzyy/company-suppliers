@@ -1,0 +1,65 @@
+ [
+	{
+		"text": "Main Document List",
+		"ref": "sap-icon://doc-attachment",
+		"nodes":
+		[
+			{
+				"text": "Business DOC",
+				"ref": "sap-icon://doc-attachment",
+				"nodes":[
+					{
+						"text": "Business DOC first",
+						"ref": "sap-icon://doc-attachment"
+					},
+					{
+						"text": "Business DOC second",
+						"ref": "sap-icon://doc-attachment",
+						"nodes":[
+							{
+								"text": "Resources DOC",
+								"ref": "sap-icon://doc-attachment",
+								"nodes":[
+									{
+										"text": "Resources DOC first",
+										"ref": "sap-icon://doc-attachment"
+									},
+									{
+										"text": "Resources DOC second",
+										"ref": "sap-icon://attachment-zip-file"
+									},
+									{
+										"text": "Resources DOC third",
+										"ref": "sap-icon://doc-attachment"
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"text": "Community DOC",
+				"ref": "sap-icon://doc-attachment"
+			}
+		]
+	},
+	{
+		"text": "Secondary Document List",
+		"ref": "sap-icon://doc-attachment",
+										"nodes":[
+									{
+										"text": "Resources DOC first",
+										"ref": "sap-icon://doc-attachment"
+									},
+									{
+										"text": "Resources DOC second",
+										"ref": "sap-icon://attachment-zip-file"
+									},
+									{
+										"text": "Resources DOC third",
+										"ref": "sap-icon://doc-attachment"
+									}
+								]
+	}
+]

@@ -1,0 +1,71 @@
+ID: SUPPLIERS
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: SUPPLIERS-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 512M
+    requires:
+      - name: SUPPLIERS-db-hdi-container
+      - name: cross-container-service1
+        group: SERVICE_REPLACEMENTS
+        properties:
+          key: ServiceName_1
+          service: '~{the-service-name}'
+  - name: SUPPLIERS-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 512M
+      disk-quota: 512M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: SUPPLIERS-db-hdi-container
+      - name: supp-uaa
+  - name: web
+    type: html5
+    path: web
+    requires:
+      - name: supp-ui5
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
+      - name: supp-uaa
+resources:
+  - name: SUPPLIERS-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+  - name: cross-container-service1
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: cross_schema_CDN
+    properties:
+      the-service-name: '${service-name}'
+  - name: supp-uaa
+    type: com.sap.xs.uaa-space
+    parameters:
+      config:
+        xsappname: supp-uaa
+        scopes:
+          - name: $XSAPPNAME.supp_access
+            description: SUPPLIER Access
+        role-templates:
+          - name: SUPPLIER_ACESS
+            description: SUPPLIER Access
+            scope-references:
+              - $XSAPPNAME.supp_access
+  - name: supp-ui5
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: sapui5_sb
+      service-plan: sapui5-1.60

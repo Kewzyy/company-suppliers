@@ -1,0 +1,115 @@
+<mvc:View
+	controllerName="sap.m.sample.Table.Table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+<App id="app">	
+	<ScrollContainer 
+	height="100%" 
+	width="100%" 
+	horizontal="true" 
+	vertical="true">
+		<Panel>
+			<SearchField
+				id="searchField"
+				width="20%"
+				placeholder="Search by Departament"
+				search=".onSearch"/>	
+		</Panel>	
+	<Table id="idProductsTable"
+		inset="false"
+		items="{
+			path: 'userModel&gt;/SUPP1'
+		}">
+		<headerToolbar>
+			<OverflowToolbar>
+				<content>
+					<Title text="Emergn Suppliers " level="H1"/>
+					<ToolbarSpacer />
+					<Label text="Sticky options: " />
+					<CheckBox text="ColumnHeaders"
+						select="onSelect"/>
+					<CheckBox text="HeaderToolbar"
+						select="onSelect"/>
+					<CheckBox text="InfoToolbar"
+						select="onSelect"/>
+					<ToggleButton id="toggleInfoToolbar"
+						text="Hide/Show InfoToolbar"
+						press="onToggleInfoToolbar" />
+				</content>
+			</OverflowToolbar>
+		</headerToolbar>
+		<infoToolbar>
+			<OverflowToolbar>
+				<Label text="Wide range of Supplier applications"/>
+							<ToolbarSpacer/>
+							<core:Icon src="sap-icon://sap-ui5" width="2rem" />
+			</OverflowToolbar>
+		</infoToolbar>
+		<columns>
+			<Column
+				hAlign="Center"
+				width="12em">
+				<Text text="Case ID" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Vendor Code" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				>
+				<Text text="Vendor Name" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true"
+				>
+				<Text text="Departament" />
+			</Column>
+			<Column
+				hAlign="Center">
+				<Text text="Status" />
+			</Column>
+			<Column
+				hAlign="Center">
+				<Text text="Date" />
+			</Column>			
+			<Column
+				hAlign="Center">
+				<Text text="Check VAT" />
+			</Column>			
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{VENDOR_ID}"
+						text="{path: 'userModel&gt;VENDOR_ID'}"/>
+						
+					<Text
+						text="{path: 'userModel&gt;CODE'}" />
+					<Text
+						text="{path: 'userModel&gt;NAME'}" />
+					<Text
+						text="{path: 'userModel&gt;DPMNT'}" />
+					<Text
+						text="{path: 'userModel&gt;STATUS'}" />
+					<Text
+						text="{path: 'userModel&gt;VENDORDATE'}" />						
+					<Button id="editButton" 
+					icon="sap-icon://validate" 
+					type="Transparent"
+					press="onEdit" />		
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</ScrollContainer> 	
+</App>	
+</mvc:View>

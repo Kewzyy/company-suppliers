@@ -1,0 +1,57 @@
+{
+	"welcomeFile": "webapp/index.html",
+	"authenticationMethod": "route",
+	"routes": [{
+		"source": "/tax/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	},
+	{
+		"source": "/api/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	},
+	
+	{
+		"source": "/tax/(.*)",
+		"destination": "srv_api",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.supp_access",
+			"POST": [
+				"$XSAPPNAME.supp_access",
+				"$XSAPPNAME.supp_access"
+			],
+			"PUT": [
+				"$XSAPPNAME.supp_access",
+				"$XSAPPNAME.supp_access"
+			],
+			"DELETE": [
+				"$XSAPPNAME.supp_access",
+				"$XSAPPNAME.supp_access"
+			],
+			"default": "$XSAPPNAME.supp_access"
+		}
+	}, {
+		"source": "/(.*)",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"scope": {
+			"GET": "$XSAPPNAME.supp_access",
+			"default": "$XSAPPNAME.supp_access"
+		},
+		"replace": {
+			"pathSuffixes": [
+				"index.html"
+			],
+			"services": {
+				"sapui5_sb": {
+					"tag": "ui5"
+				}
+			}
+		}
+	}]
+}

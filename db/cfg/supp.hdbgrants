@@ -1,0 +1,14 @@
+{
+  "ServiceName_1": {
+  "object_owner": {
+	   "roles" : [
+	        "DNS_SUPPLIER_ADMIN"
+		]
+	},
+	"application_user": {
+	    "roles" : [
+	        "DNS_SUPPLIER_ADMIN"
+		]
+	}
+  }
+}

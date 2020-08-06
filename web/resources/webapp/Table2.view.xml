@@ -1,0 +1,313 @@
+<mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" height="100%" controllerName="sap.m.sample.Table.Table2">
+		<NavContainer id="wizardNavContainer">
+			<pages><Page id="wizardContentPage" showHeader="false">
+					<content>
+						<Wizard id="CreateProductWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" >
+							<WizardStep id="ProductTypeStep" title="VAT Validation" validated="true">
+<MessageStrip class="sapUiSmallMarginBottom" text="First step of Supplier Application - VAT Check" showIcon="true"/>								
+	<IconTabBar
+		id="idIconTabBar"
+		select=".onFilterSelect"
+		class="sapUiResponsiveContentPadding">
+		<items>
+			<IconTabFilter
+				showAll="true"
+				count="20"
+				text="Hours"/>
+			<IconTabSeparator />
+			<IconTabFilter
+				icon="sap-icon://begin"
+				iconColor="Positive"
+				text="Summary"
+				key="Summary" />
+			<IconTabFilter
+				icon="sap-icon://display"
+				iconColor="Critical"
+				text="Details"
+				key="Details" />
+			<IconTabFilter
+				icon="sap-icon://activity-items"
+				iconColor="Negative"
+				text="Related"
+				key="Related" />
+		</items>
+	</IconTabBar>
+	
+						<OverflowToolbar id="toolbarnew" visible="false" active="true" design="Info" height="2rem" press="onToolbarPress" ariaHasPopup="dialog" ariaLabelledBy="myText">
+							<Text id="myTextnew" text="Information about the Case: "/>
+							<ToolbarSpacer/>
+							<core:Icon src="sap-icon://sap-ui5" width="2rem" />
+						</OverflowToolbar>	
+	
+	<Table id="generalinfo"
+		visible="false"
+		inset="false"
+		items="{
+			path: 'userModel>/SUPP1'
+		}">
+		<columns>
+			<Column
+				hAlign="Center"
+				width="12em">
+				<Text text="Case ID" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Vendor Code" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Vendor Name" />
+			</Column>
+			<Column
+				hAlign="Center"
+				minScreenWidth="Tablet"
+				demandPopin="true">
+				<Text text="Responsible Person" />
+			</Column>			
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier
+						title="{VENDOR_ID}"
+						text="{userModel>VENDOR_ID}"/>
+					<Text
+						text="{userModel>CODE}" />
+					<Text
+						text="{userModel>NAME}" />
+					<Text
+						text="Walter Podolskiy" />
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>	
+								<form:SimpleForm layout="ResponsiveGridLayout" id="vatform" editable="true" visible="false">
+									<VBox >
+									<Label text="VAT Number" required="true"/>
+									<Input valueStateText="Enter your VAT number" id="ProductNameX" placeholder="Enter VAT Number" value="{/productName}"/>
+											<Button id="validateb" text="Validate" type="Emphasized" icon="sap-icon://accept" press="onCallSOAP"/>  
+											<Button visible="false" id="validatedb" text="Sucessful Validation" type="Accept" icon="sap-icon://accept" press="onValidateButtonChange"/>
+											<Button visible="false" id="notvalidatedb" text="Unsucessful Validation" type="Reject" icon="sap-icon://decline" press="onNotValidateButtonChange"/> 
+										</VBox>
+										<Table id="x" noDataText="***">
+											<columns>
+											    <Column  demandPopin="true">
+													<header><Button id="yesorno" icon="sap-icon://validate"></Button></header>
+												</Column>												
+												<Column  demandPopin="true">
+													<header><Label text="VAT Valid"/></header>
+												</Column>
+												<Column  demandPopin="true">
+													<header><Label text="Address"/></header>
+												</Column>
+												<Column  demandPopin="true">
+													<header><Label text="Name"/></header>
+												</Column>												
+												<Column  demandPopin="true">
+													<header><Label text="Country"/></header>
+												</Column>		
+												<Column  demandPopin="true">
+													<header><Label text="VAT Nr."/></header>
+												</Column>													
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Text id="statusmidfield" placeholder="***"  text="{/statusmidfield}" />
+														<Text id="vatvalid" placeholder="***" text="{/vatvalid}"  />
+														<Text id="address" placeholder="***" text="{/address}"/>
+														<Text id="vatname" placeholder="***" text="{/vatname}" />
+														<Text id="countrycode" placeholder="***" text="{/countrycode}"/>
+														<Text id="vatnumber" placeholder="***" text="{/vatnumber}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>										
+								</form:SimpleForm>
+								
+									<Tree selectionChange="onTreeActions" visible="false" id="Tree" items="{path: '/'}" mode="MultiSelect">
+										<CustomTreeItem>
+											<FlexBox alignItems="Start" width="100%">
+												<items>
+													<Button icon="{ref}" press="handleButtonPress" class="sapUiSmallMarginEnd" />
+													<Input value="{text}">
+														<layoutData>
+															<FlexItemData growFactor="1" />
+														</layoutData>
+													</Input>
+												</items>
+											</FlexBox>
+										</CustomTreeItem>
+									</Tree>	
+	<OverflowToolbar id="toolbar" active="true" visible="false" design="Info" height="2rem" press="onToolbarPress" ariaHasPopup="dialog" ariaLabelledBy="myText">
+		<Text id="myText" text="Additional person information form: "/>
+		<ToolbarSpacer/>
+		<core:Icon src="sap-icon://sap-ui5" width="2rem" />
+	</OverflowToolbar>								
+					<List id="responsiblelist" visible="false" width="800px" title="XXX" >
+						<InputListItem label="Responsible Person">
+							<ComboBox id="STATUSS"
+							change="handleChange"
+							selectedKey="{/chosenPerson}"
+							textAlign="Begin"
+							width="400px"
+							placeholder="Choose the responsible person..." >
+								<items>
+									<core:Item  key="Chris Hansen" text="Chris Hansen"/>
+									<core:Item  key="Laurice Mayweather" text="Laurice Mayweather"/>
+									<core:Item  key="Richard Brenson" text="Richard Brenson"/>
+									<core:Item  key="Daytone Wilder" text="Daytone Wilder"/>
+									<core:Item  key="Andrey Zarubezhnij" text="Andrey Zarubezhnij"/>
+								</items>
+							</ComboBox>							
+						</InputListItem>
+						<InputListItem label="Phone">
+							<Input  value="{/phoneNr}" width="400px" textAlign="Begin" id="phone" placeholder="Input your phone.." />
+						</InputListItem>
+						<InputListItem  label="Fax">
+							<Input  value="{/faxNr}" width="400px" textAlign="Begin" id="fax" placeholder="Input your fax..." />
+						</InputListItem>
+						<InputListItem  label="Website">
+							<Input value="{/websiteY}" width="400px" textAlign="Begin" id="website" placeholder="Input your website..."/>
+						</InputListItem>
+						<InputListItem  label="Budget">
+							<Input value="{/budgetY}" width="400px" textAlign="Begin" id="budget" placeholder="State your budget..."/>
+						</InputListItem>						
+					</List>								
+									
+							</WizardStep>
+		
+							<WizardStep id="OptionalInfoStep" validated="true" activate="optionalStepActivation" title="Related Documents">
+								<MessageStrip class="sapUiSmallMarginBottom" text="Second step of Supplier Application - Documents" showIcon="true"/>
+									<IconTabBar
+										id="idIconTabBar2"
+										select=".onFilterSelect"
+										class="sapUiResponsiveContentPadding">
+										<items>
+											<IconTabFilter
+												showAll="true"
+												count="30"
+												text="Documents"
+												key="Summary2" />
+											<IconTabSeparator />
+											<IconTabFilter
+												icon="sap-icon://begin"
+												iconColor="Positive"
+												text="Summary"
+												key="Summary2" />
+											<IconTabFilter
+												icon="sap-icon://display"
+												iconColor="Critical"
+												text="Details"
+												key="Details2" />
+											<IconTabFilter
+												icon="sap-icon://activity-items"
+												iconColor="Negative"
+												text="Related"
+												key="Related2" />
+										</items>
+									</IconTabBar>
+									
+						<OverflowToolbar id="toolbarrr" visible="false" active="true" design="Info" height="2rem" press="onToolbarPress" ariaHasPopup="dialog" ariaLabelledBy="myText">
+							<Text id="myTextyoo" text="Information about related Documents: "/>
+							<ToolbarSpacer/>
+							<core:Icon src="sap-icon://sap-ui5" width="2rem" />
+						</OverflowToolbar>										
+								
+								<form:SimpleForm layout="ResponsiveGridLayout" id="docusnee" visible="false" editable="true">
+									<Label text="Upload file"/>
+									<u:FileUploader width="100%" tooltip="Upload any file to the local server" style="Emphasized" placeholder="Choose a file for Upload..."/>
+									<Label text="Manufacturing date"/>
+									<DatePicker id="DP3" displayFormat="short" value="{/manufacturingDate}"/>
+									<Label text="Status"/>
+									<SegmentedButton selectedKey="{/availabilityType}">
+										<items>
+											<SegmentedButtonItem key="New" text="New"/>
+											<SegmentedButtonItem key="Pending" text="Pending"/>
+											<SegmentedButtonItem key="Old" text="Old"/>
+										</items>
+									</SegmentedButton>
+								</form:SimpleForm>
+								
+							</WizardStep>
+
+							<WizardStep id="ProductInfoStep" validated="false" title="Approval" activate="additionalInfoValidation">
+							<MessageStrip class="sapUiSmallMarginBottom" text="Third step of Supplier Appplication - Approval Form" showIcon="true"/>								
+									<IconTabBar
+										id="idIconTabBar3"
+										select=".onFilterSelect"
+										class="sapUiResponsiveContentPadding">
+										<items>
+											<IconTabFilter
+												showAll="true"
+												count="68"
+												text="Approvals"
+												key="Summary3" />
+											<IconTabSeparator />
+											<IconTabFilter
+												icon="sap-icon://begin"
+												iconColor="Positive"
+												text="Summary"
+												key="Summary3" />
+											<IconTabFilter
+												icon="sap-icon://display"
+												iconColor="Critical"
+												text="Details"
+												key="Details3" />
+											<IconTabFilter
+												icon="sap-icon://activity-items"
+												iconColor="Negative"
+												text="Related"
+												key="Related3" />
+										</items>
+									</IconTabBar>								
+						<OverflowToolbar id="toolbarrrr" visible="false" active="true" design="Info" height="2rem" press="onToolbarPress" ariaHasPopup="dialog" ariaLabelledBy="myText">
+							<Text id="myTextyooo" text="Accept or Decline application: "/>
+							<ToolbarSpacer/>
+							<core:Icon src="sap-icon://sap-ui5" width="2rem" />
+						</OverflowToolbar>
+								<form:SimpleForm layout="ResponsiveGridLayout" id="approvalform" visible="false" editable="false">
+									<Label text="Responsible Person"/>
+									<Input editable="false" width="400px" id="rperson" text="{/chosenPerson}" value="{/chosenPerson}"/>
+									<Label text="Phone" />
+									<Input editable="false" width="400px" id="tphone" value="{/phoneNr}"/>									
+									<Label text="Fax" />
+									<Input editable="false" width="400px" id="tfax" value="{/faxNr}"/>
+									<Label text="Website" />
+									<Input editable="false" width="400px" id="tweb" value="{/websiteY}"/>
+									<Label text="Budget" />
+									<Input editable="false" width="400px" id="tbudget" value="{/budgetY}"/>	
+									<Label text="Comment"/>
+									<TextArea value="{/comment}" rows="4" width="400px"></TextArea>
+									<Label></Label>	
+									<HBox>
+									<Button press="onButttonChangeAccept"  id="acceptb"   width="200px"   icon="sap-icon://accept"   text="Accept"    type="Accept"></Button>
+									<Button press="onButttonChangeDecline" id="rejectb"   width="200px"   icon="sap-icon://decline"  text="Decline"   type="Reject"></Button>
+									<Button press="onButtonChangeNew" visible="false" id="acceptedb" width="400px"   icon="sap-icon://employee-approvals"   text="Approved"   type="Accept"></Button>
+									<Button press="onButtonChangeNew" visible="false" id="rejectedb" width="400px"   icon="sap-icon://employee-rejections"  text="Rejected"   type="Reject"></Button>									
+									</HBox>
+									
+								</form:SimpleForm>
+								<VBox>
+								<Button width="240px" text="Continue to the Report" icon="sap-icon://activity-items" type="Emphasized" press="wizardCompletedHandler"></Button>
+								</VBox>
+							</WizardStep>
+					
+						</Wizard>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button id="backButton" text="Back to Supplier List" icon="sap-icon://nav-back" press="onBack"/>							
+							<Button text="Cancel" press="handleWizardCancel"/>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+</mvc:View>
